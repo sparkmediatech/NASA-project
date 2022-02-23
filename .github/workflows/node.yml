@@ -8,9 +8,11 @@ jobs: #second action is called jobs which starts the build process
   build:
     env: #under buiild, we declared an env
       CI: true #we said that the CI environment is true. This makes the run watch in the react script to be turned off
+      MONGO_URL: mongodb://localhost/nasa
     strategy: #use this keyword to specify the versions of node we are targeting.
       matrix:
         node-version: [14.x, 16.x] #taregted node verson 14 and 16 latest versions
+        mongodb-version: ["4.4"]
     runs-on: ubuntu-latest #the OS that this build will be on
     steps: #steps that will be taken
       - uses: actions/checkout@v2
@@ -18,6 +20,10 @@ jobs: #second action is called jobs which starts the build process
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: use MongoDB from Github Actions
+        uses: supercharge/mongodb-github-action@1.7.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
       - run: npm install
       - run: npm run build --prefix client
       - run: npm test
