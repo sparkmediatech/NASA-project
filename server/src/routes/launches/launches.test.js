@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../../app'); //imported the express app module
+const { loadPlanetsData } = require('../../models/planet.model');
 const {mongoConnect, mongoDisconnect} = require('../../services/mongo');
 
 
@@ -8,6 +9,7 @@ describe('Launches API', ()=>{
     //started the mongodb connection before testing
     beforeAll(async ()=>{
          await mongoConnect();
+         await loadPlanetsData()
     });
     //should disconnect mongodb connection after testing
   afterAll(async () => {
