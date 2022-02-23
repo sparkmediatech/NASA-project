@@ -1,0 +1,21 @@
+{
+  "name": "nasa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "npm start --prefix server",
+    "client": "npm start --prefix client",
+    "start":"concurrently \"npm run server\" \"npm run client\"",
+    "deploy":"concurrently \"npm run build --prefix client\" \"npm start --prefix server\"",
+    "startcluster":"concurrently \"npm run build --prefix client\" \"npm run cluster --prefix server\"",
+    "test": "concurrently \"npm run test --prefix server\" \"npm run test --prefix client\""
+    
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.0.0"
+  }
+}
